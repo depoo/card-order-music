@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500;700;900&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  vertical-align: baseline;
+}
+
+$font:(
+  "Red-Hat-Display": 'Red Hat Display',
+  "medium": 500,
+  "bold": 700,
+  "Black": 900,
+);
+@mixin flexible($dis,$direction,$just,$aling){
+  display: $dis;
+  flex-direction: $direction;
+  justify-content: $just;
+  align-items: $aling;
+}
+@mixin mv($medida: 375px){
+  @media screen and (max-width: $medida){
+    @content
+  }
+}
+:root{
+  // Primary
+  --Pale_blue: hsl(225, 100%, 94%);
+  --Bright_blue: hsl(245, 75%, 52%);
+  --Bright_blue_light: hsla(245, 75%, 52%, 0.81);
+  // Neutral
+  --Very-pale_blue: hsl(225, 100%, 98%);
+  --Desaturated_blue: hsl(224, 23%, 55%);
+  --Dark_blue: hsl(223, 47%, 23%);
+}
+
+html{
+  font-size: 100%;
+}
+body{
+  background-color: var(--Pale_blue);
+  background-image: url('../images/pattern-background-desktop.svg');
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: contain;
+  font-size: 100%;
+  font-family: map-get($font, "Red-Hat-Display" );
+
+  @include mv(){
+    background-image: url('../images/pattern-background-mobile.svg');
+    background-repeat: no-repeat;
+  }
+}
+
+.flex{
+  @include flexible(flex, column, center, center);
+  min-height: 100vh;
+}
+
+.card{
+  width: 400px;
+  background-color: white;
+  border-radius: 1.30rem;
+  box-shadow: 1px 16px 8px 2px rgba(0,0,0, 0.11);
+  overflow: hidden;
+
+  &-img{
+    width: 100%;
+    display: block;
+  }
+
+  &-body{
+    @include flexible(flex, column, center, center);
+    padding: 30px 1.25rem;
+
+    &__title{
+      color: var(--Dark_blue);
+      font-weight: map-get($font, "Black" );
+    }
+
+    &__definition{
+      color: var(--Desaturated_blue);
+      // font-size: 1em;
+      padding: 20px;
+      text-align: center;
+      line-height: 1.6875rem;
+    }
+
+    &-plans{
+      @include flexible(flex, row, space-around, center);
+      width: 100%;
+      background-color: var(--Very-pale_blue);
+      padding: .8125rem 0;
+      border-radius: 1rem;
+
+      & > div{
+        display: flex;
+        gap: 18px;
+      }
+
+      &-option{
+        list-style: none;
+        padding-right: 20px;
+
+        &__year{
+          font-size: 0.938em;
+          color: var(--Dark_blue);
+          font-weight: map-get($font, "Black");
+          margin-bottom: .25rem;
+        }
+
+        &__price{
+          padding-left: 1px;
+          font-size: 0.938em;
+          font-weight: map-get($font, "medium");
+          color: var(--Desaturated_blue);
+        }
+      }
+
+      & a{
+        color: var(--Bright_blue);
+        font-size: 0.875em;
+        font-weight: map-get($font , "bold" );
+
+        &:hover{
+          text-decoration: none;
+          color: var(--Bright_blue_light);
+        }
+      }
+    }
+
+    &-buttons{
+      @include flexible(flex, column, center, center);
+      width: 100%;
+      padding-top: 30px;
+
+      &__button{
+        font-family: map-get($font, "Red-Hat-Display");
+        font-weight: map-get($font , "bold" );
+        width: 100%;
+        font-size: .875em;
+        border-radius: 10px;
+      }
+
+      &__pay{
+        color: var(--Pale_blue);
+        background-color: var(--Bright_blue);
+        height: 3.125rem;
+        margin-bottom: 24px;
+        transition: background-color .3s ease;
+
+        &:hover{
+          cursor: pointer;
+          background-color: var(--Bright_blue_light);
+          box-shadow: 0px 5px 5rem #776cf13c;
+        }
+      }
+      &__cancel{
+        color: var(--Desaturated_blue);
+        background-color: var(--Very-pale_blue);
+        transition: color .3s ease;
+
+        &:hover{
+          color: var(--Dark_blue);
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  @include mv(){
+    width: 350px;
+
+    &-body{
+      &__definition{
+        font-size: 16px;
+        padding: 0 18px;
+      }
+    }
+  }
+}
